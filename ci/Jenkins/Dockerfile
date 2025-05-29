@@ -18,5 +18,8 @@ RUN apt-get update && \
     sudo sh install-docker.sh && \
     sudo usermod -a -G docker jenkins
 
+USER jenkins
 # Expose Jenkins port
 EXPOSE 8080
+
+   
