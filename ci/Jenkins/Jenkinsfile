@@ -21,7 +21,7 @@ pipeline {
         SONAR_URL = "http://sonarqube:9000"
       }
       steps {
-        withCredentials([string(credentialsId: 'sonarqube', variable: 'SONAR_AUTH_TOKEN')]) {
+        withCredentials([string(credentialsId: 'sonarqube-token', variable: 'SONAR_AUTH_TOKEN')]) {
           sh 'cd demo-java-app && mvn sonar:sonar -Dsonar.login=$SONAR_AUTH_TOKEN -Dsonar.host.url=${SONAR_URL}'
         }
       }
@@ -29,7 +29,7 @@ pipeline {
     stage('Build and Push Docker Image') {
       environment {
         DOCKER_IMAGE = "abdelbakibouzaienne/demo-java-app:${build_version}"
-        REGISTRY_CREDENTIALS = credentials('dockerhub')
+        REGISTRY_CREDENTIALS = credentials('dockerhub-credentials')
       }
       steps {
         script {
@@ -47,7 +47,7 @@ pipeline {
             GIT_USER_NAME = "abdelbaki-bouzaienne"
         }
         steps {
-            withCredentials([string(credentialsId: 'github', variable: 'GITHUB_TOKEN')]) {
+            withCredentials([string(credentialsId: 'github-token', variable: 'GITHUB_TOKEN')]) {
                 sh '''
                     git config user.email "abdelbaki.bouzaienne@gmail.com"
                     git config user.name "abdelbaki-bouzaienne"
