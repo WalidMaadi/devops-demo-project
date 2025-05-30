@@ -31,7 +31,7 @@ pipeline {
     }
     stage('Build and Push Docker Image') {
       environment {
-        DOCKER_IMAGE = "WalidMaadi/demo-java-app:${build_version}"
+        DOCKER_IMAGE = "walidmaadi/demo-java-app:${build_version}"
         REGISTRY_CREDENTIALS = credentials('dockerhub-credentials')
       }
       steps {
